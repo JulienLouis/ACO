@@ -31,6 +31,9 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	
 	public void couper(int d, int f){
 		select.defBornes(d,f);;		//Permet de connaitre les bornes de la selection
+		if (d != f){	//Permet de ne pas supprimer le pp si rien n'est selectionné
+			pp.contenu_presse_papier = "";
+		}
 		for (int i = select.debut; i < select.fin; i++){		//ajoute le contenu de la selection dans le presse papier
 			pp.contenu_presse_papier = pp.contenu_presse_papier + buf.zone_texte.charAt(i);
 		}
@@ -46,6 +49,9 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	
 	public void copier(int d, int f){
 		select.defBornes(d,f);;		//Permet de connaitre les bornes de la selection
+		if (d != f){	//Permet de ne pas supprimer le pp si rien n'est selectionné
+			pp.contenu_presse_papier = "";
+		}
 		for (int i = select.debut; i < select.fin; i++){		//ajoute le contenu de la selection dans le presse papier
 			pp.contenu_presse_papier = pp.contenu_presse_papier + buf.zone_texte.charAt(i);
 		}	
