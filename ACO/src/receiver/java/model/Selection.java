@@ -50,11 +50,9 @@ public class Selection
 		super();
 	}
 	
-	public void defBornes(){
-		System.out.println("L'entier du début de la selection : ");
-		debut = scanner.nextInt();
-		System.out.println("L'entier de la fin de la selection : ");
-		fin = scanner.nextInt();
+	public void defBornes(int d, int f){
+		debut = d;
+		fin = f;
 	}
 	
 	
