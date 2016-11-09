@@ -57,10 +57,6 @@ public class Selection
 		fin = scanner.nextInt();
 	}
 	
-	public void defDebut(){
-		System.out.println("Ou coller la selection : ");
-		debut = scanner.nextInt();
-	}
 	
 
 }

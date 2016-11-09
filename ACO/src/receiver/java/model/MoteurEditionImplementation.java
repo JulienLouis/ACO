@@ -36,14 +36,9 @@ public class MoteurEditionImplementation implements MoteurImplementation
 		for (int i = select.debut; i < select.fin; i++){		//ajoute le contenu de la selection dans le presse papier
 			pp.contenu_presse_papier = pp.contenu_presse_papier + buf.zone_texte.charAt(i);
 		}
-		
-		//buf.zone_texte = buf.zone_texte.replace(pp.contenu_presse_papier , "");
-		//buf.zone_texte = buf.zone_texte.replace(pp.contenu_presse_papier, "");
-		
+		supprimer_texte();
 		assertEquals("La sélection n'a pas été coupé", pp.contenu_presse_papier, buf.zone_texte.toString());//selection vide entre les bornes
 		assertTrue("La selection n'a pas été retiré", buf.zone_texte.equals("")); //entre les bornes de la selection
-		
-	
 	}
 
 	/**
@@ -71,22 +66,11 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	
 	public void coller() {
 		assertNotNull("Le presse papier est vide", pp.contenu_presse_papier);
-		select.defDebut();
-		String subAvant= buf.zone_texte.substring(0,select.debut);		//Avant la selection
-		String subApres= buf.zone_texte.substring(select.debut);		//Après la selection
-		String temp  = subAvant.concat(pp.contenu_presse_papier).concat(subApres);
-		// probleme de type de string buffer 
-		//buf.zone_texte = StringBuffer(temp); 
-		assertTrue("La sélection n'a pas été coupé", buf.zone_texte.equals(pp.contenu_presse_papier));
+		select.defBornes();	//Determine ou est coller la selection
+		buf.zone_texte = buf.zone_texte.replace(select.debut, select.fin, pp.contenu_presse_papier);	//colle la selection entre les bornes de la selection
+		assertTrue("La sélection n'a pas été coupé", buf.zone_texte.equals(pp.contenu_presse_papier));	//test à revoir
 	}
 	
-	/*public String[] diviser(String text, int delimitat){
-		String[] res = {"",""};
-		for(int i = 0; i < text.length(); i++){
-			for(int )
-		}
-		return res;
-	}*/
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -136,8 +120,14 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	
 	public void inserer_texte(){
 		String avant = buf.zone_texte.toString();
-		//buf.zone_texte =  (buf.zone_texte + " " + scanner.next());
-		assertNotSame("Le texte ne s'est pas ajouter", buf.zone_texte, avant);
+		System.out.println("texte à ajouter : ");
+		buf.zone_texte =  buf.zone_texte.replace(select.debut, select.fin, " " + scanner.next());
+		assertNotSame("Le texte ne s'est pas ajouter", buf.zone_texte, avant);	//test à revoir
+	}
+	
+	public void supprimer_texte(){
+		select.defBornes();	//les bornes de la selection
+		buf.zone_texte.delete(select.debut, select.fin);
 	}
 
 	/**
