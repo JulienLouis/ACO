@@ -31,14 +31,14 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	
 	
 	public void couper(){
-		assertTrue("Rien n'est sélectionné", (select.fin-select.debut != 0)); 
+	//	assertTrue("Rien n'est sélectionné", (select.fin-select.debut != 0)); 
 		select.defBornes();		//Permet de connaitre les bornes de la selection
 		for (int i = select.debut; i < select.fin; i++){		//ajoute le contenu de la selection dans le presse papier
 			pp.contenu_presse_papier = pp.contenu_presse_papier + buf.zone_texte.charAt(i);
 		}
 		supprimer_texte();
-		assertEquals("La sélection n'a pas été coupé", pp.contenu_presse_papier, buf.zone_texte.toString());//selection vide entre les bornes
-		assertTrue("La selection n'a pas été retiré", buf.zone_texte.equals("")); //entre les bornes de la selection
+		//assertEquals("La sélection n'a pas été coupé", pp.contenu_presse_papier, buf.zone_texte.toString());//selection vide entre les bornes
+		//assertTrue("La selection n'a pas été retiré", buf.zone_texte.equals("")); //entre les bornes de la selection
 	}
 
 	/**
@@ -49,12 +49,12 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	 */
 	
 	public void copier(){
-		assertTrue("Rien n'est sélectionné", (select.fin-select.debut != 0));
+	//	assertTrue("Rien n'est sélectionné", (select.fin-select.debut != 0));
 		select.defBornes();		//Permet de connaitre les bornes de la selection
 		for (int i = select.debut; i < select.fin; i++){		//ajoute le contenu de la selection dans le presse papier
 			pp.contenu_presse_papier = pp.contenu_presse_papier + buf.zone_texte.charAt(i);
 		}		
-		assertTrue("La sélection n'a pas été copier", pp.contenu_presse_papier.equals(buf.zone_texte));	
+	//	assertTrue("La sélection n'a pas été copier", pp.contenu_presse_papier.equals(buf.zone_texte));	
 	}
 
 	/**
@@ -65,10 +65,10 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	 */
 	
 	public void coller() {
-		assertNotNull("Le presse papier est vide", pp.contenu_presse_papier);
+		//assertNotNull("Le presse papier est vide", pp.contenu_presse_papier);
 		select.defBornes();	//Determine ou est coller la selection
 		buf.zone_texte = buf.zone_texte.replace(select.debut, select.fin, pp.contenu_presse_papier);	//colle la selection entre les bornes de la selection
-		assertTrue("La sélection n'a pas été coupé", buf.zone_texte.equals(pp.contenu_presse_papier));	//test à revoir
+		//assertTrue("La sélection n'a pas été coupé", buf.zone_texte.equals(pp.contenu_presse_papier));	//test à revoir
 	}
 	
 
@@ -107,8 +107,8 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	 */
 	
 	public void selectionner(){
-		assertNotNull("Rien n'est sélectionné", select.debut);
-		assertNotNull("Rien n'est sélectionné", select.fin);
+		//assertNotNull("Rien n'est sélectionné", select.debut);
+		//assertNotNull("Rien n'est sélectionné", select.fin);
 	}
 
 	/**
@@ -119,10 +119,9 @@ public class MoteurEditionImplementation implements MoteurImplementation
 	 */
 	
 	public void inserer_texte(){
-		String avant = buf.zone_texte.toString();
+		select.defBornes();
 		System.out.println("texte à ajouter : ");
 		buf.zone_texte =  buf.zone_texte.replace(select.debut, select.fin, " " + scanner.next());
-		assertNotSame("Le texte ne s'est pas ajouter", buf.zone_texte, avant);	//test à revoir
 	}
 	
 	public void supprimer_texte(){
